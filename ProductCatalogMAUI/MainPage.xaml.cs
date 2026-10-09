@@ -36,5 +36,13 @@ namespace ProductCatalogMAUI
             };
             Products.Add(newProduct);
         }
+
+        private void OnClickRemoveProduct(object? sender, EventArgs e)
+        {
+            if (ProductsCollectionView.SelectedItem is Product selectedProduct)
+            {
+                Products.Remove(selectedProduct);
+            }
+        }
     }
 }
