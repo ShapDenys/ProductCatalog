@@ -8,21 +8,39 @@
         Padding="30"
         Spacing="20">
 
-            <Label
-            x:Name="ProductNameLabel"
-            Text="Wyszukiwanie"
-            FontSize="32"
-            HorizontalTextAlignment="Center" />
-
             <Entry
             x:Name="ProductNameEntry"
             Placeholder="Enter product name"
             Keyboard="Text" />
 
+            <Entry
+            x:Name="ProductPriceEntry"
+            Placeholder="Enter product price"
+            Keyboard="Numeric" />
+
+            <Picker
+            x:Name="ProductCategoryPicker">
+                <Picker.Items>
+                    <x:String>A</x:String>
+                    <x:String>B</x:String>
+                    <x:String>C</x:String>
+                </Picker.Items>
+            </Picker>
+            
+            <Entry
+            x:Name="ProductQuantityEntry"
+            Placeholder="Enter product quantity"
+            Keyboard="Numeric" />
+            
+            <Label
+            x:Name="ErrorMessageLabel"
+            TextColor="Red"
+            IsVisible="False" />
+            
             <Button
-            x:Name="ChangeColorBtn"
-            Text="Change color"
-            Clicked="OnClickChangeColor"
+            x:Name="AddProductBtn"
+            Text="Add Product"
+            Clicked="OnClickAddProduct"
             HorizontalOptions="Fill" />
 
             <Grid ColumnSpacing="10" RowSpacing="5">

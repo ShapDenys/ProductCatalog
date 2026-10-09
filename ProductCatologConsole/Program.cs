@@ -1,6 +1,7 @@
 ﻿using ProductCatalog;
 
-var products = Product.GetTestData(10);
+var productCatalog = new Product();
+var products = productCatalog.GetTestData(10);
 
 var productsInCategories = new Dictionary<char, List<Product>>();
 

@@ -22,19 +22,21 @@ public class Product
         return $"Name: {Name}, Price: {Price}, Category: {Category}, Quantity: {Quantity}";
     }
 
-    public static List<Product> GetTestData(uint amount)
+    public List<Product> GetTestData(uint amount)
     {
         Random random = new Random();
         var products = new List<Product>();
-        
+         
         for (int i = 0; i < amount; i++)
         {
-            products.Add(new Product {
-                Name = $"Product {i + 1}",
-                Price = Math.Round(random.NextDouble() * 100, 2),
-                Category = (char)('A' + random.Next(0, 3)),
-                Quantity = (uint)random.Next(1, 100)
-            });
+            products.Add(
+                new Product {
+                    Name = $"Product {i + 1}",
+                    Price = Math.Round(random.NextDouble() * 100, 2),
+                    Category = (char)('A' + random.Next(0, 3)),
+                    Quantity = (uint)random.Next(1, 100)
+                }
+            );
         }
 
         return products;
