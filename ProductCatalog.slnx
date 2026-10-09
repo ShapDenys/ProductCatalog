@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="ProductCatalog/ProductCatalog.csproj" />
+  <Project Path="ProductCatalogMAUI/ProductCatalogMAUI.csproj" />
+  <Project Path="ProductCatalogTests/ProductCatalogTests.csproj" />
+  <Project Path="ProductCatalogWPF/ProductCatalogWPF.csproj" />
+  <Project Path="ProductCatologConsole/ProductCatologConsole.csproj" />
+</Solution>
