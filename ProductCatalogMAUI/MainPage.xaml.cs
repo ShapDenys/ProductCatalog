@@ -1,6 +1,6 @@
 ﻿using ProductCatalog;
 
-namespace Product_Catalog
+namespace ProductCatalogMAUI
 {
     public partial class MainPage : ContentPage
     {
