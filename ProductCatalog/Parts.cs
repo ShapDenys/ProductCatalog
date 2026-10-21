@@ -13,5 +13,10 @@ namespace ProductCatalog
         {
             return $"Name: {Name}, Price: {Price}, Category: {Category}, Quantity: {Quantity}, Producer: {Producer}";
         }
+
+        public override string Description()
+        {
+            return $"Part: {Name}, Price: {Price}, Category: {Category}, Quantity: {Quantity}, Producer: {Producer}, Stock Value: {StockValue}";
+        }
     }
 }

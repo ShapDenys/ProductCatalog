@@ -6,7 +6,7 @@ var products = productCatalog.GetTestData(10);
 var productsInCategories = new Dictionary<char, List<Product>>();
 
 Console.WriteLine("Enter the maximum price: ");
-double maxPrice = ReadMaxPrice();
+double maxPrice = double.Parse(Console.ReadLine());
 
 
 foreach (var product in products)
@@ -19,7 +19,7 @@ foreach (var product in products)
 }
 
 Console.WriteLine("Which product category do you want to see? ");
-char selectedCategory = ReadCategory();
+char selectedCategory = char.Parse(Console.ReadLine());
 
 Console.WriteLine($"---Products in category {selectedCategory}---");
 foreach (var product in productsInCategories[selectedCategory])
@@ -42,32 +42,14 @@ foreach (var product in products.OrderBy(p => p.Price))
 Console.WriteLine($"---Whole Stock Value---");
 Console.WriteLine($"{Math.Round(products.Sum(p => p.StockValue), 2)} zł");
 
-double ReadMaxPrice()
+var producerParts = new List<Parts>
 {
-    while (true)
-    {
-        if (double.TryParse(Console.ReadLine(), out var maxPrice) && Product.IsValid(maxPrice))
-        {
-            return maxPrice;
-        }
+    new Parts { Name = "Part 1", Price = 10.0, Category = 'A', Quantity = 5, Producer = "Producer A" },
+    new Parts { Name = "Part 2", Price = 15.0, Category = 'B', Quantity = 3, Producer = "Producer B" },
+    new Parts { Name = "Part 3", Price = 20.0, Category = 'C', Quantity = 2, Producer = "Producer C" }
+};
 
-        Console.WriteLine("Invalid max price. Enter a number greater than or equal to 0:");
-    }
-}
-
-char ReadCategory()
+foreach(var part in producerParts)
 {
-    while (true)
-    {
-        if (char.TryParse(Console.ReadLine(), out var category))
-        {
-            category = char.ToUpperInvariant(category);
-            if (Product.IsValid(category))
-            {
-                return category;
-            }
-        }
-
-        Console.WriteLine("Invalid category. Enter A, B or C:");
-    }
+    Console.WriteLine(part.Description());
 }

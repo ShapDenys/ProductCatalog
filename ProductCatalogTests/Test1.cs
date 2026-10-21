@@ -81,5 +81,49 @@ namespace TestProject1
                 Assert.IsTrue(product.Quantity >= 0, $"Product {product.Name} has a negative quantity.");
             }
         }
+
+        [TestMethod]
+
+        public void DoesPartDescriptionIncludeProducer()
+        {
+            var part = new Parts
+            {
+                Name = "Test Part",
+                Price = 10.0,
+                Category = 'A',
+                Quantity = 5,
+                Producer = "Test Producer"
+            };
+            string description = part.Description();
+            Assert.IsTrue(description.Contains(part.Producer), "Description does not include the producer.");
+        }
+
+        [TestMethod]
+        public void CheckServiceStockValue()
+        {
+            var service = new Service
+            {
+                Name = "Test Service",
+                Price = 100.0,
+                Category = 'S',
+                Quantity = 1
+            };
+            Assert.AreEqual(0, service.StockValue, "Stock value for Service should be 0.");
+        }
+
+        [TestMethod]
+        public void CheckAccessoryDescriptionIncludesColor()
+        {
+            var accessory = new Accessory
+            {
+                Name = "Test Accessory",
+                Price = 20.0,
+                Category = 'A',
+                Quantity = 10,
+                Color = "Red"
+            };
+            string description = accessory.Description();
+            Assert.IsTrue(description.Contains(accessory.Color), "Description does not include the color.");
+        }
     }
 }
