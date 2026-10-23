@@ -126,4 +126,50 @@ namespace TestProject1
             Assert.IsTrue(description.Contains(accessory.Color), "Description does not include the color.");
         }
     }
+
+    [TestClass]
+    public sealed class ProductSearchTests
+    {
+        [TestMethod]
+        public void Search_MatchingQuery_ReturnsMatchingProducts()
+        {
+            var testData = new List<Product>
+            {
+                new Product { Name = "Wireless Mouse", Price = 80, Category = 'A', Quantity = 5 },
+                new Product { Name = "Keyboard", Price = 150, Category = 'B', Quantity = 2 },
+                new Product { Name = "Mouse Pad", Price = 40, Category = 'A', Quantity = 8 }
+            };
+
+            var result = ProductSearch.Search(testData, "Mouse").ToList();
+            Assert.AreEqual(2, result.Count);
+        }
+
+        [TestMethod]
+        public void Search_EmptyQuery_ReturnsAllProducts()
+        {
+            var testData = new List<Product>
+            {
+                new Product { Name = "Wireless Mouse", Price = 80, Category = 'A', Quantity = 5 },
+                new Product { Name = "Keyboard", Price = 150, Category = 'B', Quantity = 2 },
+                new Product { Name = "Mouse Pad", Price = 40, Category = 'A', Quantity = 8 }
+            };
+
+            var result = ProductSearch.Search(testData, "").ToList();
+            Assert.AreEqual(3, result.Count);
+        }
+
+        [TestMethod]
+        public void Search_NoMatchQuery_ReturnsEmptyList()
+        {
+            var testData = new List<Product>
+            {
+                new Product { Name = "Wireless Mouse", Price = 80, Category = 'A', Quantity = 5 },
+                new Product { Name = "Keyboard", Price = 150, Category = 'B', Quantity = 2 },
+                new Product { Name = "Mouse Pad", Price = 40, Category = 'A', Quantity = 8 }
+            };
+
+            var result = ProductSearch.Search(testData, "Monitor").ToList();
+            Assert.AreEqual(0, result.Count);
+        }
+    }
 }

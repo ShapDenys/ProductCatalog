@@ -4,22 +4,21 @@
              x:Class="ProductCatalogMAUI.MainPage">
 
     <ScrollView>
-        <VerticalStackLayout
-        Padding="30"
-        Spacing="20">
+        <VerticalStackLayout Padding="30" Spacing="20">
 
-            <Entry
-            x:Name="ProductNameEntry"
-            Placeholder="Enter product name"
-            Keyboard="Text" />
+            <SearchBar x:Name="ProductSearchBar"
+                       Placeholder="Search product..."
+                       TextChanged="OnSearchBarTextChanged" />
 
-            <Entry
-            x:Name="ProductPriceEntry"
-            Placeholder="Enter product price"
-            Keyboard="Numeric" />
+            <Entry x:Name="ProductNameEntry"
+                   Placeholder="Enter product name"
+                   Keyboard="Text" />
 
-            <Picker
-            x:Name="ProductCategoryPicker">
+            <Entry x:Name="ProductPriceEntry"
+                   Placeholder="Enter product price"
+                   Keyboard="Numeric" />
+
+            <Picker x:Name="ProductCategoryPicker">
                 <Picker.Items>
                     <x:String>A</x:String>
                     <x:String>B</x:String>
@@ -27,21 +26,18 @@
                 </Picker.Items>
             </Picker>
             
-            <Entry
-            x:Name="ProductQuantityEntry"
-            Placeholder="Enter product quantity"
-            Keyboard="Numeric" />
+            <Entry x:Name="ProductQuantityEntry"
+                   Placeholder="Enter product quantity"
+                   Keyboard="Numeric" />
             
-            <Label
-            x:Name="ErrorMessageLabel"
-            TextColor="Red"
-            IsVisible="False" />
+            <Label x:Name="ErrorMessageLabel"
+                   TextColor="Red"
+                   IsVisible="False" />
             
-            <Button
-            x:Name="AddProductBtn"
-            Text="Add Product"
-            Clicked="OnClickAddProduct"
-            HorizontalOptions="Fill" />
+            <Button x:Name="AddProductBtn"
+                    Text="Add Product"
+                    Clicked="OnClickAddProduct"
+                    HorizontalOptions="Fill" />
 
             <Grid ColumnSpacing="10" RowSpacing="5">
                 <Grid.ColumnDefinitions>
@@ -57,7 +53,15 @@
                 <Label Grid.Column="3" Text="Quantity" FontAttributes="Bold" />
             </Grid>
 
-            <CollectionView x:Name="ProductsCollectionView" ItemsSource="{Binding Products}" SelectionMode="Single">
+            <CollectionView x:Name="ProductsCollectionView" 
+                            ItemsSource="{Binding VisibleProducts}" 
+                            SelectionMode="Single">
+                <CollectionView.EmptyView>
+                    <Label Text="No products match your criteria." 
+                           HorizontalOptions="Center" 
+                           VerticalOptions="Center" 
+                           Margin="0,20" />
+                </CollectionView.EmptyView>
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Grid ColumnDefinitions="2*,*,*,*" Padding="0,6">
@@ -70,11 +74,15 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
 
-            <Button
-            x:Name="RemoveProductBtn"
-            Text="Remove Product"
-            Clicked="OnClickRemoveProduct"
-            HorizontalOptions="Fill" />
+            <Label x:Name="ItemsCounterLabel" 
+                   HorizontalOptions="Center" 
+                   FontAttributes="Italic" />
+
+            <Button x:Name="RemoveProductBtn"
+                    Text="Remove Product"
+                    Clicked="OnClickRemoveProduct"
+                    HorizontalOptions="Fill" />
+
         </VerticalStackLayout>
     </ScrollView>
 
