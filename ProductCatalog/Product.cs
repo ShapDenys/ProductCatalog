@@ -1,8 +1,8 @@
-﻿namespace ProductCatalog;
+namespace ProductCatalog;
 
 public class Product
 {
-    public string Name { get; set; }
+    public string Name { get; set; } = string.Empty;
     public double Price { get; set; }
     public char Category { get; set; }
     public uint Quantity { get; set; }

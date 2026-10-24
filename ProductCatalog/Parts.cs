@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,7 +7,7 @@ namespace ProductCatalog
     // Class Parts inherits from Product class, representing a specific part in the product catalog.
     public class Parts : Product
     {
-        public string Producer { get; set; }
+        public string Producer { get; set; } = string.Empty;
 
         public override string ToString()
         {

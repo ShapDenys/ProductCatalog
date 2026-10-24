@@ -1,4 +1,4 @@
-﻿using ProductCatalog;
+using ProductCatalog;
 
 namespace TestProject1
 {
@@ -27,7 +27,7 @@ namespace TestProject1
         {
             var products = ReadyTestProducts();
             var categories = products.Select(p => p.Category).Distinct().ToList();
-            Assert.AreEqual(3, categories.Count, $"Expected 3 categories, but found {categories.Count}.");
+            Assert.HasCount(3, categories, $"Expected 3 categories, but found {categories.Count}.");
         }
 
         [TestMethod]
@@ -38,7 +38,7 @@ namespace TestProject1
             var categoryGroups = products.GroupBy(p => p.Category);
             foreach (var group in categoryGroups)
             {
-                Assert.IsTrue(group.Count() >= 5, $"Category {group.Key} has less than 5 products.");
+                Assert.IsGreaterThanOrEqualTo(5, group.Count(), $"Category {group.Key} has less than 5 products.");
             }
         }
 
@@ -77,8 +77,8 @@ namespace TestProject1
             var products = ReadyTestProducts();
             foreach (var product in products)
             {
-                Assert.IsTrue(product.Price >= 0, $"Product {product.Name} has a negative price.");
-                Assert.IsTrue(product.Quantity >= 0, $"Product {product.Name} has a negative quantity.");
+                Assert.IsGreaterThanOrEqualTo(0.0, product.Price, $"Product {product.Name} has a negative price.");
+                Assert.IsGreaterThanOrEqualTo(0u, product.Quantity, $"Product {product.Name} has a negative quantity.");
             }
         }
 
@@ -95,7 +95,7 @@ namespace TestProject1
                 Producer = "Test Producer"
             };
             string description = part.Description();
-            Assert.IsTrue(description.Contains(part.Producer), "Description does not include the producer.");
+            Assert.Contains(part.Producer, description, "Description does not include the producer.");
         }
 
         [TestMethod]
@@ -123,7 +123,7 @@ namespace TestProject1
                 Color = "Red"
             };
             string description = accessory.Description();
-            Assert.IsTrue(description.Contains(accessory.Color), "Description does not include the color.");
+            Assert.Contains(accessory.Color, description, "Description does not include the color.");
         }
     }
 
@@ -141,7 +141,7 @@ namespace TestProject1
             };
 
             var result = ProductSearch.Search(testData, "Mouse").ToList();
-            Assert.AreEqual(2, result.Count);
+            Assert.HasCount(2, result);
         }
 
         [TestMethod]
@@ -155,7 +155,7 @@ namespace TestProject1
             };
 
             var result = ProductSearch.Search(testData, "").ToList();
-            Assert.AreEqual(3, result.Count);
+            Assert.HasCount(3, result);
         }
 
         [TestMethod]
@@ -169,7 +169,7 @@ namespace TestProject1
             };
 
             var result = ProductSearch.Search(testData, "Monitor").ToList();
-            Assert.AreEqual(0, result.Count);
+            Assert.IsEmpty(result);
         }
     }
 }

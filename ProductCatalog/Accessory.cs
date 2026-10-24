@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,7 +6,7 @@ namespace ProductCatalog
 {
     public class Accessory : Product
     {
-        public string Color { get; set; }
+        public string Color { get; set; } = string.Empty;
 
         public override string Description()
         {
