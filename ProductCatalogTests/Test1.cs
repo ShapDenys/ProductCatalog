@@ -1,3 +1,4 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using ProductCatalog;
 
 namespace TestProject1
@@ -131,7 +132,17 @@ namespace TestProject1
         // 2. adding the same product twice to an order does not add a new item,
         //    increases its quantity and order value is correct
         // 3. class throws an exception if we add a product with quantity <= 0
-        //    use Assert.ThrowsExactly<ArgumentException> and verify if the exception message is correct
+        //    use var ex = Assert.ThrowsExactly<ArgumentException> and verify if exception message contains "Quantity must be greater than zero."
+        [TestMethod]
+        public void OrderAddNegativeQuantityThrowsException()
+        {
+            // Arrange
+            var order = new Order();
+            var product = ReadyTestProducts().First();
+            // Act & Assert
+            var ex = Assert.ThrowsExactly<ArgumentException>(() => order.Add(product, -1));
+            StringAssert.Contains(ex.Message, "Quantity must be greater than zero.", "Adding product with quantity <= 0 should throw ArgumentException.");
+        }
         // 4. order correctly calculates total sum of two items - one with a part, second with a service
     }
 
