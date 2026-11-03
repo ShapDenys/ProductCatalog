@@ -61,4 +61,21 @@ public class Product : IPriced, IComparable<Product>
         // Otherwise return comparison of product prices
         return this.Price.CompareTo(other.Price);
     }
+
+    public static List<Product> Search(List<Product> products, string name)
+    {
+        List<Product> foundProducts = new List<Product>();
+        // Foreach loop to search product list and add matching products
+        foreach (var product in products)
+        {
+            if (product.Name.Contains(name, StringComparison.OrdinalIgnoreCase))
+            {
+                foundProducts.Add(product);
+            }
+        }
+        // Alternatively LINQ can be used:
+        foundProducts.Clear();
+        foundProducts = products.Where(p => p.Name.Contains(name, StringComparison.OrdinalIgnoreCase)).ToList();
+        return foundProducts;
+    }
 }

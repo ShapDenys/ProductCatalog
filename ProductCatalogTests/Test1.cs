@@ -144,6 +144,54 @@ namespace TestProject1
             StringAssert.Contains(ex.Message, "Quantity must be greater than zero.", "Adding product with quantity <= 0 should throw ArgumentException.");
         }
         // 4. order correctly calculates total sum of two items - one with a part, second with a service
+
+        List<Product> PrepareProductsList()
+        {
+            Random r = new Random();
+            var products = new List<Product>();
+            for (int i = 0; i < 10000; i++)
+            {
+                Product p = new Product
+                {
+                    Name = $"Product{i}",
+                    Price = r.NextDouble() * 100,
+                    Category = (char)('A' + r.Next(0, 3)),
+                    Quantity = (uint)r.Next(1, 20)
+                };
+                products.Add(p);
+            }
+            return products;
+        }
+
+        // Quick test for product searching in a list - search products by name and verify result is correct
+        [TestMethod]
+        public void SearchProductsByName()
+        {
+            // Arrange
+            var products = PrepareProductsList();
+            string searchName = "Product1"; // search for products containing "Product1" in name
+            // Act
+            var foundProducts = Product.Search(products, searchName);
+            // Assert
+            foreach (var product in foundProducts)
+            {
+                StringAssert.Contains(product.Name, searchName, $"Found product {product.Name} should contain '{searchName}' in its name.");
+            }
+        }
+
+        // Check how many products with a specific name are in the list and compare with search result
+        [TestMethod]
+        public void SearchProductsByName_FoundProductsCount()
+        {
+            // Arrange
+            var products = PrepareProductsList();
+            string searchName = "000"; // search for products containing "000" in name
+            int expectedCount = 9; // because products will be named Product1000, Product2000, etc.
+            // Act
+            var foundProducts = Product.Search(products, searchName);
+            // Assert
+            Assert.AreEqual(expectedCount, foundProducts.Count, $"Number of found products should equal {expectedCount}.");
+        }
     }
 
     [TestClass]
