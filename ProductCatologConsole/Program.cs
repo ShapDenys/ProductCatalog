@@ -51,14 +51,24 @@ foreach (var product in products.OrderBy(p => p.Price))
 Console.WriteLine($"---Whole Stock Value---");
 Console.WriteLine($"{Math.Round(products.Sum(p => p.StockValue), 2)} zł");
 
-var producerParts = new List<Parts>
+// Inheritance and method overriding demonstration
+// The list is of type Product, but can store objects of classes inheriting from Product
+List<Product> inheritedProducts = new List<Product>
 {
-    new Parts { Name = "Part 1", Price = 10.0, Category = 'A', Quantity = 5, Producer = "Producer A" },
-    new Parts { Name = "Part 2", Price = 15.0, Category = 'B', Quantity = 3, Producer = "Producer B" },
-    new Parts { Name = "Part 3", Price = 20.0, Category = 'C', Quantity = 2, Producer = "Producer C" }
+    new Product { Name = "Product1", Price = 10.0, Category = 'A', Quantity = 5 },
+    new Parts { Name = "Part1", Price = 25.0, Category = 'B', Quantity = 2, Producer = "Producer1" },
+    new Accessory { Name = "Accessory1", Price = 15.0, Category = 'B', Quantity = 3, Color = "Black" },
+    new Service { Name = "Service1", Price = 50.0, Category = 'C', Quantity = 1 }
 };
 
-foreach(var part in producerParts)
+foreach (var product in inheritedProducts)
 {
-    Console.WriteLine(part.Description());
+    Console.WriteLine(product.Description());
 }
+
+// This works because all classes inherit from Product, which implements IComparable<Product>,
+// so we can sort the list of inherited products by Price
+inheritedProducts.Sort();
+
+// Sort inherited products alphabetically by name
+var productsAlphabetically = inheritedProducts.OrderBy(p => p.Name).ToList();
