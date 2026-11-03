@@ -30,7 +30,9 @@ namespace ProductCatalogMAUI
         {
             VisibleProducts.Clear();
 
-            foreach (var p in ProductSearch.Search(allProducts, ProductSearchBar?.Text))
+            string criteria = ProductSearchBar?.Text ?? string.Empty;
+            List<Product> foundProducts = Product.Search(allProducts, criteria);
+            foreach (var p in foundProducts)
             {
                 VisibleProducts.Add(p);
             }
@@ -39,6 +41,11 @@ namespace ProductCatalogMAUI
             {
                 ItemsCounterLabel.Text = $"Showing {VisibleProducts.Count} of {allProducts.Count}";
             }
+        }
+
+        private void OnClickSearch(object? sender, EventArgs e)
+        {
+            RefreshView();
         }
 
         private void OnSearchBarTextChanged(object? sender, TextChangedEventArgs e)

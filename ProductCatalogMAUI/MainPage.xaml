@@ -6,9 +6,15 @@
     <ScrollView>
         <VerticalStackLayout Padding="30" Spacing="20">
 
+            <!-- Search section -->
+            <Label Text="Search:" />
             <SearchBar x:Name="ProductSearchBar"
-                       Placeholder="Search product..."
+                       Placeholder="Enter product name..."
                        TextChanged="OnSearchBarTextChanged" />
+            <Button x:Name="SearchBtn"
+                    Text="Search"
+                    Clicked="OnClickSearch"
+                    HorizontalOptions="Fill" />
 
             <Entry x:Name="ProductNameEntry"
                    Placeholder="Enter product name"
