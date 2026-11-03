@@ -39,7 +39,7 @@ namespace ProductCatalogMAUI
 
             if (ItemsCounterLabel is not null)
             {
-                ItemsCounterLabel.Text = $"Showing {VisibleProducts.Count} of {allProducts.Count}";
+                ItemsCounterLabel.Text = $"Number of products: {VisibleProducts.Count}";
             }
         }
 

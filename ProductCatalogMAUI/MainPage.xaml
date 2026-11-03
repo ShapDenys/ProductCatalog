@@ -59,12 +59,16 @@
                 <Label Grid.Column="3" Text="Quantity" FontAttributes="Bold" />
             </Grid>
 
+            <!-- Number of found products -->
+            <Label x:Name="ItemsCounterLabel" 
+                   Text="Number of products: 0" />
+
             <CollectionView x:Name="ProductsCollectionView" 
                             ItemsSource="{Binding VisibleProducts}" 
                             SelectionMode="Single"
                             HeightRequest="300">
                 <CollectionView.EmptyView>
-                    <Label Text="No products match your criteria." 
+                    <Label Text="No products to display." 
                            HorizontalOptions="Center" 
                            VerticalOptions="Center" 
                            Margin="0,20" />
@@ -80,10 +84,6 @@
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
-
-            <Label x:Name="ItemsCounterLabel" 
-                   HorizontalOptions="Center" 
-                   FontAttributes="Italic" />
 
             <Button x:Name="RemoveProductBtn"
                     Text="Remove Product"
