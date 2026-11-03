@@ -14,7 +14,7 @@ public class Order
     public IReadOnlyList<OrderItem> Items => items;
 
     // Method to add an order item
-    public void Add(Product product, int quantity)
+    public void Add(IPriced product, int quantity)
     {
         // First check if quantity is valid
         if (quantity <= 0)

@@ -6,12 +6,14 @@ namespace ProductCatalog;
 
 public class OrderItem
 {
-    // Each item consists of a product and its quantity
-    public Product Product { get; set; }
+    // Each item consists of a product or bundle
+    // (both implement the IPriced interface)
+    // and its quantity in the order
+    public IPriced Product { get; set; }
     public int Quantity { get; private set; }
 
-    // Constructor accepts a product and its quantity
-    public OrderItem(Product product, int quantity)
+    // Constructor accepts a priced item and its quantity
+    public OrderItem(IPriced product, int quantity)
     {
         Product = product;
         Quantity = quantity;

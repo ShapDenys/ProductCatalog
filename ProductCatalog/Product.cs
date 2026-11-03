@@ -1,6 +1,6 @@
 namespace ProductCatalog;
 
-public class Product
+public class Product : IPriced, IComparable<Product>
 {
     public string Name { get; set; } = string.Empty;
     public double Price { get; set; }
@@ -47,5 +47,18 @@ public class Product
         }
 
         return products;
+    }
+
+    /// <summary>
+    /// Implementation of IComparable for product allowing comparison of two products by price
+    /// </summary>
+    /// <param name="other"></param>
+    /// <returns></returns>
+    public int CompareTo(Product? other)
+    {
+        // If other object is null, this object is greater (since 1 > 0)
+        if (other == null) return 1;
+        // Otherwise return comparison of product prices
+        return this.Price.CompareTo(other.Price);
     }
 }
