@@ -125,6 +125,13 @@ namespace TestProject1
             string description = accessory.Description();
             Assert.Contains(accessory.Color, description, "Description does not include the color.");
         }
+
+        // tests to write 28.10
+        // 1. empty order has order total equal to 0
+        // 2. adding the same product twice to an order does not add a new item,
+        //    increases its quantity and order value is correct
+        // 3. class throws an exception if we add a product with quantity <= 0
+        // 4. order correctly calculates total sum of two items - one with a part, second with a service
     }
 
     [TestClass]
