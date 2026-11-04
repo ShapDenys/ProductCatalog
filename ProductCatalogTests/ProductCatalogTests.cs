@@ -4,7 +4,7 @@ using ProductCatalog;
 namespace TestProject1
 {
     [TestClass]
-    public sealed class Test1
+    public sealed class ProductCatalogTests
     {
         Random random = new Random();
 
@@ -15,8 +15,8 @@ namespace TestProject1
                 yield return new Product
                 {
                     Name = $"Product {i + 1}",
-                    Price = Math.Round(random.NextDouble() * 100, 2), // 0 - 100
-                    Category = (char)('A' + random.Next(0, 3)), // A, B, or C
+                    Price = Math.Round(random.NextDouble() * 100, 2), 
+                    Category = (char)('A' + random.Next(0, 3)),
                     Quantity = (uint)random.Next(1, 20) // 1 - 20
                 };
             }
@@ -127,23 +127,14 @@ namespace TestProject1
             Assert.Contains(accessory.Color, description, "Description does not include the color.");
         }
 
-        // tests to write 28.10
-        // 1. empty order has order total equal to 0
-        // 2. adding the same product twice to an order does not add a new item,
-        //    increases its quantity and order value is correct
-        // 3. class throws an exception if we add a product with quantity <= 0
-        //    use var ex = Assert.ThrowsExactly<ArgumentException> and verify if exception message contains "Quantity must be greater than zero."
         [TestMethod]
         public void OrderAddNegativeQuantityThrowsException()
         {
-            // Arrange
             var order = new Order();
             var product = ReadyTestProducts().First();
-            // Act & Assert
             var ex = Assert.ThrowsExactly<ArgumentException>(() => order.Add(product, -1));
             StringAssert.Contains(ex.Message, "Quantity must be greater than zero.", "Adding product with quantity <= 0 should throw ArgumentException.");
         }
-        // 4. order correctly calculates total sum of two items - one with a part, second with a service
 
         List<Product> PrepareProductsList()
         {
@@ -163,33 +154,25 @@ namespace TestProject1
             return products;
         }
 
-        // Quick test for product searching in a list - search products by name and verify result is correct
         [TestMethod]
         public void SearchProductsByName()
         {
-            // Arrange
             var products = PrepareProductsList();
-            string searchName = "Product1"; // search for products containing "Product1" in name
-            // Act
+            string searchName = "Product1";
             var foundProducts = Product.Search(products, searchName);
-            // Assert
             foreach (var product in foundProducts)
             {
                 StringAssert.Contains(product.Name, searchName, $"Found product {product.Name} should contain '{searchName}' in its name.");
             }
         }
 
-        // Check how many products with a specific name are in the list and compare with search result
         [TestMethod]
         public void SearchProductsByName_FoundProductsCount()
         {
-            // Arrange
             var products = PrepareProductsList();
-            string searchName = "000"; // search for products containing "000" in name
-            int expectedCount = 9; // because products will be named Product1000, Product2000, etc.
-            // Act
+            string searchName = "000";
+            int expectedCount = 9;
             var foundProducts = Product.Search(products, searchName);
-            // Assert
             Assert.AreEqual(expectedCount, foundProducts.Count, $"Number of found products should equal {expectedCount}.");
         }
     }
