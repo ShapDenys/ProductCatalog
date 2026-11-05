@@ -31,7 +31,7 @@ namespace ProductCatalogMAUI
             VisibleProducts.Clear();
 
             string criteria = ProductSearchBar?.Text ?? string.Empty;
-            List<Product> foundProducts = Product.Search(allProducts, criteria);
+            IEnumerable<Product> foundProducts = ProductSearch.Search(allProducts, criteria);
             foreach (var p in foundProducts)
             {
                 VisibleProducts.Add(p);
@@ -39,7 +39,7 @@ namespace ProductCatalogMAUI
 
             if (ItemsCounterLabel is not null)
             {
-                ItemsCounterLabel.Text = $"Number of products: {VisibleProducts.Count}";
+                ItemsCounterLabel.Text = $"Matching products: {VisibleProducts.Count}";
             }
         }
 

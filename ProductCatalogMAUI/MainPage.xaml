@@ -7,14 +7,22 @@
         <VerticalStackLayout Padding="30" Spacing="20">
 
             <!-- Search section -->
-            <Label Text="Search:" />
-            <SearchBar x:Name="ProductSearchBar"
-                       Placeholder="Enter product name..."
-                       TextChanged="OnSearchBarTextChanged" />
-            <Button x:Name="SearchBtn"
-                    Text="Search"
-                    Clicked="OnClickSearch"
-                    HorizontalOptions="Fill" />
+            <Border Stroke="#512BD4"
+                    StrokeThickness="1"
+                    StrokeShape="RoundRectangle 8"
+                    Padding="12">
+                <VerticalStackLayout Spacing="8">
+                    <Label Text="Search products by name:"
+                           FontAttributes="Bold" />
+                    <SearchBar x:Name="ProductSearchBar"
+                               Placeholder="Enter product name..."
+                               TextChanged="OnSearchBarTextChanged" />
+                    <Button x:Name="SearchBtn"
+                            Text="Search"
+                            Clicked="OnClickSearch"
+                            HorizontalOptions="Fill" />
+                </VerticalStackLayout>
+            </Border>
 
             <Entry x:Name="ProductNameEntry"
                    Placeholder="Enter product name"
@@ -61,7 +69,7 @@
 
             <!-- Number of found products -->
             <Label x:Name="ItemsCounterLabel" 
-                   Text="Number of products: 0" />
+                   Text="Matching products: 0" />
 
             <CollectionView x:Name="ProductsCollectionView" 
                             ItemsSource="{Binding VisibleProducts}" 
