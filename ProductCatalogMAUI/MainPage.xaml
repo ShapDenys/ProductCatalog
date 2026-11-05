@@ -17,10 +17,6 @@
                     <SearchBar x:Name="ProductSearchBar"
                                Placeholder="Enter product name..."
                                TextChanged="OnSearchBarTextChanged" />
-                    <Button x:Name="SearchBtn"
-                            Text="Search"
-                            Clicked="OnClickSearch"
-                            HorizontalOptions="Fill" />
                 </VerticalStackLayout>
             </Border>
 

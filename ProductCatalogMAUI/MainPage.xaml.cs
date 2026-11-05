@@ -43,11 +43,6 @@ namespace ProductCatalogMAUI
             }
         }
 
-        private void OnClickSearch(object? sender, EventArgs e)
-        {
-            RefreshView();
-        }
-
         private void OnSearchBarTextChanged(object? sender, TextChangedEventArgs e)
         {
             RefreshView();
