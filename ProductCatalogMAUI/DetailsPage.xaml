@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ProductCatalogMAUI.DetailsPage"
+             Title="Product Details">
+    <VerticalStackLayout Padding="30" Spacing="15">
+        <!-- Each label reads one property of the object in BindingContext -->
+        <Label Text="{Binding Name}" FontSize="24" FontAttributes="Bold" />
+        <Label Text="{Binding Category, StringFormat='Category: {0}'}" />
+        <Label Text="{Binding Price, StringFormat='Price: {0:C}'}" />
+        <Label Text="{Binding Quantity, StringFormat='In Stock: {0} pcs.'}" />
+        <Label Text="{Binding StockValue, StringFormat='Stock Value: {0:C}'}" />
+        <!-- Description() is a method, not a property, so we set it in the code-behind -->
+        <Label x:Name="descriptionLabel" />
+        <Button Text="Return to List" Clicked="ReturnToList_Clicked" />
+    </VerticalStackLayout>
+</ContentPage>

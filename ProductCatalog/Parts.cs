@@ -9,11 +9,6 @@ namespace ProductCatalog
     {
         public string Producer { get; set; } = string.Empty;
 
-        public override string ToString()
-        {
-            return $"Name: {Name}, Price: {Price}, Category: {Category}, Quantity: {Quantity}, Producer: {Producer}";
-        }
-
         public override string Description()
         {
             return $"Part: {Name}, Price: {Price}, Category: {Category}, Quantity: {Quantity}, Producer: {Producer}, Stock Value: {StockValue}";

@@ -94,6 +94,10 @@
                     Clicked="OnClickRemoveProduct"
                     HorizontalOptions="Fill" />
 
+            <Button x:Name="DetailsBtn"
+                    Text="Details"
+                    Clicked="OnClickDetails"/>
+
         </VerticalStackLayout>
     </ScrollView>
 

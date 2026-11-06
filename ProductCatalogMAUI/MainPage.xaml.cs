@@ -22,6 +22,22 @@ namespace ProductCatalogMAUI
             }
 
             allProducts.AddRange(new Product().GetTestData(5));
+            allProducts.Add(new Parts
+            {
+                Name = "Test Part",
+                Price = 250,
+                Category = 'P',
+                Quantity = 4,
+                Producer = "Part Manufacturer"
+            });
+            allProducts.Add(new Service
+            {
+                Name = "Test Service",
+                Price = 120,
+                Category = 'U',
+                Quantity = 2,
+                Producer = "Service Provider"
+            });
 
             RefreshView();
         }
@@ -124,6 +140,18 @@ namespace ProductCatalogMAUI
             if (ErrorMessageLabel is not null)
             {
                 ErrorMessageLabel.IsVisible = false;
+            }
+        }
+
+        private async void OnClickDetails(object sender, EventArgs e)
+        {
+            if (ProductsCollectionView?.SelectedItem is Product selectedProduct)
+            {
+                await Navigation.PushAsync(new DetailsPage(selectedProduct));
+            }
+            else
+            {
+                await DisplayAlertAsync("No Product Selected", "Please select a product from the list to view details.", "OK");
             }
         }
     }
