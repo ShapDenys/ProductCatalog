@@ -2,14 +2,21 @@ using ProductCatalog;
 
 namespace ProductCatalogMAUI;
 
-public partial class DetailsPage : ContentPage
+public partial class DetailsPage : ContentPage, IQueryAttributable
 {
     // Page gets a product from outside - this is "data passing"
-    public DetailsPage(Product product)
+    public DetailsPage()
     {
         InitializeComponent();
-        BindingContext = product;   // Label with {Binding ...} reads from this object
-        descriptionLabel.Text = product.Description(); // Description() executes on sertain object
+    }
+
+    public void ApplyQueryAttributes(IDictionary<string, object> query)
+    {
+        if (query["product"] is Product product)
+        {
+            BindingContext = product;
+            descriptionLabel.Text = product.Description();
+        }
     }
 
     private async void ReturnToList_Clicked(object sender, EventArgs e)

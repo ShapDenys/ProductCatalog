@@ -143,15 +143,20 @@ namespace ProductCatalogMAUI
             }
         }
 
+
+        /*
+        
+        
+
+         */
         private async void OnClickDetails(object sender, EventArgs e)
         {
             if (ProductsCollectionView?.SelectedItem is Product selectedProduct)
             {
-                await Navigation.PushAsync(new DetailsPage(selectedProduct));
-            }
-            else
-            {
-                await DisplayAlertAsync("No Product Selected", "Please select a product from the list to view details.", "OK");
+                await Shell.Current.GoToAsync(nameof(DetailsPage), new Dictionary<string, object>
+                {
+                    ["product"] = selectedProduct
+                });
             }
         }
     }

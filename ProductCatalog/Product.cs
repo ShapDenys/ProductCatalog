@@ -49,23 +49,15 @@ public class Product : IPriced, IComparable<Product>
         return products;
     }
 
-    /// <summary>
-    /// Implementation of IComparable for product allowing comparison of two products by price
-    /// </summary>
-    /// <param name="other"></param>
-    /// <returns></returns>
     public int CompareTo(Product? other)
     {
-        // If other object is null, this object is greater (since 1 > 0)
         if (other == null) return 1;
-        // Otherwise return comparison of product prices
         return this.Price.CompareTo(other.Price);
     }
 
     public static List<Product> Search(List<Product> products, string name)
     {
         List<Product> foundProducts = new List<Product>();
-        // Foreach loop to search product list and add matching products
         foreach (var product in products)
         {
             if (product.Name.Contains(name, StringComparison.OrdinalIgnoreCase))
@@ -73,7 +65,6 @@ public class Product : IPriced, IComparable<Product>
                 foundProducts.Add(product);
             }
         }
-        // Alternatively LINQ can be used:
         foundProducts.Clear();
         foundProducts = products.Where(p => p.Name.Contains(name, StringComparison.OrdinalIgnoreCase)).ToList();
         return foundProducts;
