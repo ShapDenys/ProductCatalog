@@ -158,7 +158,8 @@ namespace ProductCatalogMAUI
             {
                 await Shell.Current.GoToAsync(nameof(DetailsPage), new Dictionary<string, object>
                 {
-                    ["product"] = selectedProduct
+                    ["product"] = selectedProduct,
+                    ["products"] = allProducts
                 });
             }
         }

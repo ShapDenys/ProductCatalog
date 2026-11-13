@@ -5,6 +5,7 @@ namespace ProductCatalogMAUI;
 public partial class DetailsPage : ContentPage, IQueryAttributable
 {
     private Product? product;
+    private List<Product>? products;
 
     public DetailsPage()
     {
@@ -16,6 +17,7 @@ public partial class DetailsPage : ContentPage, IQueryAttributable
         if (query["product"] is Product product)
         {
             this.product = product;
+            products = query["products"] as List<Product>;
             BindingContext = product;
             nameEntry.Text = product.Name;
             categoryEntry.Text = product.Category.ToString();
@@ -77,6 +79,29 @@ public partial class DetailsPage : ContentPage, IQueryAttributable
         errorLabel.Text = message;
         errorLabel.IsVisible = true;
         successLabel.IsVisible = false;
+    }
+
+    private async void Delete_Clicked(object sender, EventArgs e)
+    {
+        if (product is null || products is null)
+        {
+            ShowError("No product selected.");
+            return;
+        }
+
+        bool confirmed = await DisplayAlert(
+            "Delete product",
+            $"Are you sure you want to delete '{product.Name}'?",
+            "Delete",
+            "Cancel");
+
+        if (!confirmed)
+        {
+            return;
+        }
+
+        products.Remove(product);
+        await Shell.Current.GoToAsync("..");
     }
 
     private async void ReturnToList_Clicked(object sender, EventArgs e)

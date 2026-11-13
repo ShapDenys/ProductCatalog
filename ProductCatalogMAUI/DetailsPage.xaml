@@ -27,5 +27,8 @@
                IsVisible="False" />
         <Button Text="Save" Clicked="Save_Clicked" />
         <Button Text="Return to List" Clicked="ReturnToList_Clicked" />
+        <Button Text="Delete Product"
+                Clicked="Delete_Clicked"
+                BackgroundColor="Red" />
     </VerticalStackLayout>
 </ContentPage>
