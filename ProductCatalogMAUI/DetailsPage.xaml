@@ -4,14 +4,28 @@
              x:Class="ProductCatalogMAUI.DetailsPage"
              Title="Product Details">
     <VerticalStackLayout Padding="30" Spacing="15">
-        <!-- Each label reads one property of the object in BindingContext -->
-        <Label Text="{Binding Name}" FontSize="24" FontAttributes="Bold" />
-        <Label Text="{Binding Category, StringFormat='Category: {0}'}" />
-        <Label Text="{Binding Price, StringFormat='Price: {0:C}'}" />
-        <Label Text="{Binding Quantity, StringFormat='In Stock: {0} pcs.'}" />
-        <Label Text="{Binding StockValue, StringFormat='Stock Value: {0:C}'}" />
-        <!-- Description() is a method, not a property, so we set it in the code-behind -->
+        <Entry x:Name="nameEntry"
+               Placeholder="Name"
+               FontSize="24"
+               FontAttributes="Bold" />
+        <Entry x:Name="categoryEntry"
+               Placeholder="Category" />
+        <Entry x:Name="priceEntry"
+               Placeholder="Price"
+               Keyboard="Numeric" />
+        <Entry x:Name="quantityEntry"
+               Placeholder="Quantity"
+               Keyboard="Numeric" />
+        <Label x:Name="stockValueLabel"
+               Text="{Binding StockValue, StringFormat='Stock Value: {0:C}'}" />
         <Label x:Name="descriptionLabel" />
+        <Label x:Name="errorLabel"
+               TextColor="Red"
+               IsVisible="False" />
+        <Label x:Name="successLabel"
+               TextColor="Green"
+               IsVisible="False" />
+        <Button Text="Save" Clicked="Save_Clicked" />
         <Button Text="Return to List" Clicked="ReturnToList_Clicked" />
     </VerticalStackLayout>
 </ContentPage>

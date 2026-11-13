@@ -42,6 +42,12 @@ namespace ProductCatalogMAUI
             RefreshView();
         }
 
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+            RefreshView();
+        }
+
         private void RefreshView()
         {
             VisibleProducts.Clear();
@@ -52,6 +58,9 @@ namespace ProductCatalogMAUI
             {
                 VisibleProducts.Add(p);
             }
+
+            ProductsCollectionView.ItemsSource = null;
+            ProductsCollectionView.ItemsSource = VisibleProducts;
 
             if (ItemsCounterLabel is not null)
             {
