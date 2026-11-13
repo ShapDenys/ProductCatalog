@@ -143,12 +143,6 @@ namespace ProductCatalogMAUI
             }
         }
 
-
-        /*
-        
-        
-
-         */
         private async void OnClickDetails(object sender, EventArgs e)
         {
             if (ProductsCollectionView?.SelectedItem is Product selectedProduct)
