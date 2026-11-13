@@ -1,0 +1,18 @@
+<StackPanel Margin="20">
+    <TextBox Text="Catalog"
+             HorizontalAlignment="Center"
+             FontSize="24"
+             Margin="0,0,0,20" />
+
+    <ItemsControl ItemsSource="{Binding Products}">
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Name}"
+                               Width="200" />
+                    <TextBlock Text="{Binding Price, StringFormat={}{0} zł}" />
+                </StackPanel>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+    </ItemsControl>
+</StackPanel>
