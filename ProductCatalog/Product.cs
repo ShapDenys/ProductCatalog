@@ -1,13 +1,62 @@
+using System.ComponentModel;
+
 namespace ProductCatalog;
 
-public class Product : IPriced, IComparable<Product>
+public class Product : IPriced, IComparable<Product>, INotifyPropertyChanged
 {
-    public string Name { get; set; } = string.Empty;
-    public double Price { get; set; }
-    public char Category { get; set; }
-    public uint Quantity { get; set; }
-    public virtual double StockValue { get { return Price * Quantity; } }
+    private string _name = string.Empty;
+    private double _price;
+    private uint _quantity;
 
+    public string Name
+    {
+        get => _name;
+        set
+        {
+            if (_name != value)
+            {
+                _name = value;
+                OnPropertyChanged(nameof(Name));
+            }
+        }
+    }
+
+    public double Price
+    {
+        get => _price;
+        set
+        {
+            if (_price != value)
+            {
+                _price = value;
+                OnPropertyChanged(nameof(Price));
+            }
+        }
+    }
+
+    public char Category { get; set; }
+
+    public uint Quantity
+    {
+        get => _quantity;
+        set
+        {
+            if (_quantity != value)
+            {
+                _quantity = value;
+                OnPropertyChanged(nameof(Quantity));
+            }
+        }
+    }
+
+    public virtual double StockValue => Price * Quantity;
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected void OnPropertyChanged(string propertyName)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 
     public static void DisplayProductInfo(Product product)
     {
@@ -18,55 +67,45 @@ public class Product : IPriced, IComparable<Product>
         Console.WriteLine($"Stock Value: {product.StockValue}");
     }
 
-    public override string ToString()
-    {
-        return $"Name: {Name}, Price: {Price}, Category: {Category}, Quantity: {Quantity}";
-    }
-
     public virtual string Description()
     {
         return $"Product: {Name}, Price: {Price}, Category: {Category}, Quantity: {Quantity}";
     }
 
-
     public List<Product> GetTestData(uint amount)
     {
-        Random random = new Random();
+        var random = new Random();
         var products = new List<Product>();
-         
-        for (int i = 0; i < amount; i++)
+
+        for (var i = 0; i < amount; i++)
         {
-            products.Add(
-                new Product {
-                    Name = $"Product {i + 1}",
-                    Price = Math.Round(random.NextDouble() * 100, 2),
-                    Category = (char)('A' + random.Next(0, 3)),
-                    Quantity = (uint)random.Next(1, 100)
-                }
-            );
+            products.Add(new Product
+            {
+                Name = $"Product {i + 1}",
+                Price = Math.Round(random.NextDouble() * 100, 2),
+                Category = (char)('A' + random.Next(0, 3)),
+                Quantity = (uint)random.Next(1, 100)
+            });
         }
 
         return products;
     }
 
-    public int CompareTo(Product? other)
-    {
-        if (other == null) return 1;
-        return this.Price.CompareTo(other.Price);
-    }
-
     public static List<Product> Search(List<Product> products, string name)
     {
-        List<Product> foundProducts = new List<Product>();
-        foreach (var product in products)
+        return products
+            .Where(product =>
+                product.Name.Contains(name, StringComparison.OrdinalIgnoreCase))
+            .ToList();
+    }
+
+    public int CompareTo(Product? other)
+    {
+        if (other is null)
         {
-            if (product.Name.Contains(name, StringComparison.OrdinalIgnoreCase))
-            {
-                foundProducts.Add(product);
-            }
+            return 1;
         }
-        foundProducts.Clear();
-        foundProducts = products.Where(p => p.Name.Contains(name, StringComparison.OrdinalIgnoreCase)).ToList();
-        return foundProducts;
+
+        return string.Compare(Name, other.Name, StringComparison.OrdinalIgnoreCase);
     }
 }
