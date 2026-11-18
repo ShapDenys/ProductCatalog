@@ -1,4 +1,4 @@
-﻿<Window x:Class="ProductCatalogWPF.MainWindow"
+﻿ <Window x:Class="ProductCatalogWPF.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -10,30 +10,139 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <TextBlock Text="Katalog produktów"
+                   Grid.Row="0"
                    HorizontalAlignment="Center"
                    FontSize="24"
                    FontWeight="Bold" />
 
-        <DataGrid x:Name="productsDataGrid"
-                  Grid.Row="1"
-                  Margin="0,20,0,0"
-                  AutoGenerateColumns="False"
-                  IsReadOnly="True"
-                  CanUserAddRows="False"
-                  HeadersVisibility="Column"
-                  GridLinesVisibility="All">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Nazwa" Binding="{Binding Name}" Width="*" />
-                <DataGridTextColumn Header="Kategoria" Binding="{Binding Category}" Width="100" />
-                <DataGridTextColumn Header="Cena" Binding="{Binding Price, StringFormat={}{0:C}}" Width="110" />
-                <DataGridTextColumn Header="Ilość" Binding="{Binding Quantity}" Width="90" />
-                <DataGridTextColumn Header="Wartość magazynu" Binding="{Binding StockValue, StringFormat={}{0:C}}" Width="150" />
-                <DataGridTextColumn Header="Producent" Binding="{Binding Producer}" Width="*" />
-                <DataGridTextColumn Header="Kolor" Binding="{Binding Color}" Width="*" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <Grid Grid.Row="1" Margin="0,20,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Auto">
+                    <StackPanel>
+                        <Grid Background="#D9EAF7" Margin="0,0,0,2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*" />
+                                <ColumnDefinition Width="1.1*" />
+                                <ColumnDefinition Width="1.2*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1.7*" />
+                                <ColumnDefinition Width="1.7*" />
+                                <ColumnDefinition Width="1.2*" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Text="Nazwa" FontWeight="Bold" Padding="8" />
+                            <TextBlock Grid.Column="1" Text="Kategoria" FontWeight="Bold" Padding="8" />
+                            <TextBlock Grid.Column="2" Text="Cena" FontWeight="Bold" Padding="8" />
+                            <TextBlock Grid.Column="3" Text="Ilość" FontWeight="Bold" Padding="8" />
+                            <TextBlock Grid.Column="4" Text="Wartość magazynu" FontWeight="Bold" Padding="8" />
+                            <TextBlock Grid.Column="5" Text="Producent" FontWeight="Bold" Padding="8" />
+                            <TextBlock Grid.Column="6" Text="Kolor" FontWeight="Bold" Padding="8" />
+                        </Grid>
+
+                        <ListBox x:Name="productsListBox"
+                                 SelectionChanged="ProductsListBox_SelectionChanged"
+                                 BorderThickness="0">
+                            <ListBox.ItemContainerStyle>
+                                <Style TargetType="ListBoxItem">
+                                    <Setter Property="Padding" Value="0" />
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                </Style>
+                            </ListBox.ItemContainerStyle>
+                            <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#D0D0D0" BorderThickness="0,0,0,1">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="1.1*" />
+                                        <ColumnDefinition Width="1.2*" />
+                                        <ColumnDefinition Width="1*" />
+                                        <ColumnDefinition Width="1.7*" />
+                                        <ColumnDefinition Width="1.7*" />
+                                        <ColumnDefinition Width="1.2*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding Name}" Padding="8" />
+                                    <TextBlock Grid.Column="1" Text="{Binding Category}" Padding="8" />
+                                    <TextBlock Grid.Column="2" Text="{Binding Price, StringFormat={}{0:C}}" Padding="8" />
+                                    <TextBlock Grid.Column="3" Text="{Binding Quantity}" Padding="8" />
+                                    <TextBlock Grid.Column="4" Text="{Binding StockValue, StringFormat={}{0:C}}" Padding="8" />
+                                    <TextBlock Grid.Column="5" Text="{Binding Producer}" Padding="8" />
+                                    <Border Grid.Column="6"
+                                            Width="70"
+                                            Height="22"
+                                            Margin="8"
+                                            HorizontalAlignment="Left"
+                                            Background="{Binding Color}"
+                                            BorderBrush="#808080"
+                                            BorderThickness="1"
+                                            CornerRadius="3"
+                                            ToolTip="{Binding Color}">
+                                        <Border.Style> <!-- Functionality to hide border if no color is specified -->
+                                            <Style TargetType="Border">
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Color}" Value="">
+                                                        <Setter Property="Visibility" Value="Collapsed" /> <!-- Hide border if no color is specified -->
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Color}" Value="{x:Null}">
+                                                        <Setter Property="Visibility" Value="Collapsed" /> <!-- Hide border if color is null -->
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </Border.Style>
+                                    </Border>
+                                </Grid>
+                            </Border>
+                            </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </StackPanel>
+                </ScrollViewer>
+            </StackPanel>
+
+            <StackPanel x:Name="productDetailsPanel"
+                        Grid.Column="1"
+                        Margin="20,0,0,0">
+                <TextBlock Text="Selected product"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Margin="0,0,0,15" />
+                <Border BorderBrush="#D0D0D0"
+                        BorderThickness="1"
+                        Padding="12">
+                    <StackPanel>
+                        <TextBlock Text="Name" FontWeight="Bold" />
+                        <TextBlock Text="{Binding Name}" Margin="0,0,0,10" />
+                        <TextBlock Text="Category" FontWeight="Bold" />
+                        <TextBlock Text="{Binding Category}" Margin="0,0,0,10" />
+                        <TextBlock Text="Price" FontWeight="Bold" />
+                        <TextBlock Text="{Binding Price, StringFormat={}{0:C}}" Margin="0,0,0,10" />
+                        <TextBlock Text="Quantity" FontWeight="Bold" />
+                        <TextBlock Text="{Binding Quantity}" Margin="0,0,0,10" />
+                        <TextBlock Text="Stock value" FontWeight="Bold" />
+                        <TextBlock Text="{Binding StockValue, StringFormat={}{0:C}}" Margin="0,0,0,10" />
+                        <TextBlock Text="Producer" FontWeight="Bold" />
+                        <TextBlock Text="{Binding Producer}" Margin="0,0,0,10" />
+                        <TextBlock Text="Color" FontWeight="Bold" />
+                        <TextBlock Text="{Binding Color}" />
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+
+        <TextBlock Grid.Row="2"
+                   Margin="0,12,0,0"
+                   HorizontalAlignment="Right"
+                   FontSize="16"
+                   FontWeight="Bold"
+                   Text="{Binding RelativeSource={RelativeSource AncestorType=Window}, Path=WarehouseTotal, StringFormat='Warehouse value: {0:C}'}" />
     </Grid>
 </Window>
