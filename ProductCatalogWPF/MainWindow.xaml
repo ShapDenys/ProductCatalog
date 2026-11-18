@@ -5,9 +5,35 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProductCatalogWPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <StackPanel Margin="20">
-        <TextBox Text="Catalog" HorizontalAlignment="Center" FontSize="24" VerticalAlignment="Top"/>
-        <ListBox x:Name="productsListBox"  VerticalAlignment="Stretch" Margin="0,20,0,0"/>
-    </StackPanel>
+        Title="Product Catalog" Height="450" Width="900">
+    <Grid Margin="20">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Katalog produktów"
+                   HorizontalAlignment="Center"
+                   FontSize="24"
+                   FontWeight="Bold" />
+
+        <DataGrid x:Name="productsDataGrid"
+                  Grid.Row="1"
+                  Margin="0,20,0,0"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  CanUserAddRows="False"
+                  HeadersVisibility="Column"
+                  GridLinesVisibility="All">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Nazwa" Binding="{Binding Name}" Width="*" />
+                <DataGridTextColumn Header="Kategoria" Binding="{Binding Category}" Width="100" />
+                <DataGridTextColumn Header="Cena" Binding="{Binding Price, StringFormat={}{0:C}}" Width="110" />
+                <DataGridTextColumn Header="Ilość" Binding="{Binding Quantity}" Width="90" />
+                <DataGridTextColumn Header="Wartość magazynu" Binding="{Binding StockValue, StringFormat={}{0:C}}" Width="150" />
+                <DataGridTextColumn Header="Producent" Binding="{Binding Producer}" Width="*" />
+                <DataGridTextColumn Header="Kolor" Binding="{Binding Color}" Width="*" />
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
 </Window>
