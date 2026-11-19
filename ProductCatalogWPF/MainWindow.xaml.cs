@@ -13,9 +13,10 @@ namespace ProductCatalogWPF
 
             var products = new List<Product>
             {
-                new Parts { Name = "Part A", Price = 10.0, Category = 'P', Quantity = 5, Producer = "Producer A" },
-                new Service { Name = "Service B", Price = 20.0, Category = 'S', Quantity = 3, Producer = "Producer B" },
-                new Accessory { Name = "Accessory C", Price = 15.0, Category = 'A', Quantity = 10, Color = "#ff00ff" }
+                new Product { Name = "Prebuild PC", Price = 2499.99, Category = 'C', Quantity = 3 },
+                new Parts { Name = "Motherboard", Price = 155.99, Category = 'P', Quantity = 5, Producer = "MSI" },
+                new Service { Name = "Reapply Thermal Interface", Price = 20.0, Category = 'S', Quantity = 3, Producer = "ASUS" },
+                new Accessory { Name = "Pink Catgirl-headphones for Tomasz", Price = 15.0, Category = 'A', Quantity = 10, Color = "#FFB7CE" }
             };
 
             WarehouseTotal = Warehouse.CalculateTotalWarehouseValue(products);
