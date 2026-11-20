@@ -4,8 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ProductCatalogWPF"
-        mc:Ignorable="d"
-        Title="Product Catalog" Height="450" Width="900">
+         mc:Ignorable="d"
+         Language="en-US"
+        Title="Product Catalog" Height="600" Width="1050">
     <Grid Margin="20">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -13,7 +14,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Katalog produktów"
+        <TextBlock Text="Product Catalog"
                    Grid.Row="0"
                    HorizontalAlignment="Center"
                    FontSize="24"
@@ -29,23 +30,23 @@
                 <ScrollViewer HorizontalScrollBarVisibility="Auto"
                               VerticalScrollBarVisibility="Auto">
                     <StackPanel>
-                        <Grid Background="#D9EAF7" Margin="0,0,0,2">
+                        <Grid Width="700" Background="#D9EAF7" Margin="0,0,0,2">
                             <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="2*" />
-                                <ColumnDefinition Width="1.1*" />
-                                <ColumnDefinition Width="1.2*" />
-                                <ColumnDefinition Width="1*" />
-                                <ColumnDefinition Width="1.7*" />
-                                <ColumnDefinition Width="1.7*" />
-                                <ColumnDefinition Width="1.2*" />
+                                <ColumnDefinition Width="180" />
+                                <ColumnDefinition Width="85" />
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="60" />
+                                <ColumnDefinition Width="110" />
+                                <ColumnDefinition Width="100" />
+                                <ColumnDefinition Width="85" />
                             </Grid.ColumnDefinitions>
-                            <TextBlock Text="Nazwa" FontWeight="Bold" Padding="8" />
-                            <TextBlock Grid.Column="1" Text="Kategoria" FontWeight="Bold" Padding="8" />
-                            <TextBlock Grid.Column="2" Text="Cena" FontWeight="Bold" Padding="8" />
-                            <TextBlock Grid.Column="3" Text="Ilość" FontWeight="Bold" Padding="8" />
-                            <TextBlock Grid.Column="4" Text="Wartość magazynu" FontWeight="Bold" Padding="8" />
-                            <TextBlock Grid.Column="5" Text="Producent" FontWeight="Bold" Padding="8" />
-                            <TextBlock Grid.Column="6" Text="Kolor" FontWeight="Bold" Padding="8" />
+                            <TextBlock Text="Name" FontWeight="Bold" Padding="8" TextWrapping="NoWrap" />
+                            <TextBlock Grid.Column="1" Text="Category" FontWeight="Bold" Padding="8" TextWrapping="NoWrap" />
+                            <TextBlock Grid.Column="2" Text="Price" FontWeight="Bold" Padding="8" TextWrapping="NoWrap" />
+                            <TextBlock Grid.Column="3" Text="Quantity" FontWeight="Bold" Padding="8" TextWrapping="NoWrap" />
+                            <TextBlock Grid.Column="4" Text="Stock value" FontWeight="Bold" Padding="8" TextWrapping="NoWrap" />
+                            <TextBlock Grid.Column="5" Text="Producer" FontWeight="Bold" Padding="8" TextWrapping="NoWrap" />
+                            <TextBlock Grid.Column="6" Text="Color" FontWeight="Bold" Padding="8" TextWrapping="NoWrap" />
                         </Grid>
 
                         <ListBox x:Name="productsListBox"
@@ -60,22 +61,22 @@
                             <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="#D0D0D0" BorderThickness="0,0,0,1">
-                                <Grid>
+                                <Grid Width="700">
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="2*" />
-                                        <ColumnDefinition Width="1.1*" />
-                                        <ColumnDefinition Width="1.2*" />
-                                        <ColumnDefinition Width="1*" />
-                                        <ColumnDefinition Width="1.7*" />
-                                        <ColumnDefinition Width="1.7*" />
-                                        <ColumnDefinition Width="1.2*" />
+                                        <ColumnDefinition Width="180" />
+                                        <ColumnDefinition Width="85" />
+                                        <ColumnDefinition Width="80" />
+                                        <ColumnDefinition Width="60" />
+                                        <ColumnDefinition Width="110" />
+                                        <ColumnDefinition Width="100" />
+                                        <ColumnDefinition Width="85" />
                                     </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding Name}" Padding="8" />
-                                    <TextBlock Grid.Column="1" Text="{Binding Category}" Padding="8" />
-                                    <TextBlock Grid.Column="2" Text="{Binding Price, StringFormat={}{0:C}}" Padding="8" />
-                                    <TextBlock Grid.Column="3" Text="{Binding Quantity}" Padding="8" />
-                                    <TextBlock Grid.Column="4" Text="{Binding StockValue, StringFormat={}{0:C}}" Padding="8" />
-                                    <TextBlock Grid.Column="5" Text="{Binding Producer}" Padding="8" />
+                                    <TextBlock Text="{Binding Name}" Padding="8" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
+                                    <TextBlock Grid.Column="1" Text="{Binding Category}" Padding="8" TextWrapping="NoWrap" />
+                                    <TextBlock Grid.Column="2" Text="{Binding Price, StringFormat={}{0:C}}" Padding="8" TextWrapping="NoWrap" />
+                                    <TextBlock Grid.Column="3" Text="{Binding Quantity}" Padding="8" TextWrapping="NoWrap" />
+                                    <TextBlock Grid.Column="4" Text="{Binding StockValue, StringFormat={}{0:C}}" Padding="8" TextWrapping="NoWrap" />
+                                    <TextBlock Grid.Column="5" Text="{Binding Producer}" Padding="8" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" />
                                     <Border Grid.Column="6"
                                             Width="70"
                                             Height="22"
@@ -120,19 +121,41 @@
                         Padding="12">
                     <StackPanel>
                         <TextBlock Text="Name" FontWeight="Bold" />
-                        <TextBlock Text="{Binding Name}" Margin="0,0,0,10" />
+                        <TextBox x:Name="nameTextBox" Margin="0,0,0,10" />
                         <TextBlock Text="Category" FontWeight="Bold" />
-                        <TextBlock Text="{Binding Category}" Margin="0,0,0,10" />
+                        <ComboBox x:Name="categoryComboBox" Margin="0,0,0,10">
+                            <ComboBoxItem Content="C" />
+                            <ComboBoxItem Content="P" />
+                            <ComboBoxItem Content="S" />
+                            <ComboBoxItem Content="A" />
+                        </ComboBox>
                         <TextBlock Text="Price" FontWeight="Bold" />
-                        <TextBlock Text="{Binding Price, StringFormat={}{0:C}}" Margin="0,0,0,10" />
+                        <TextBox x:Name="priceTextBox" Margin="0,0,0,10" />
                         <TextBlock Text="Quantity" FontWeight="Bold" />
-                        <TextBlock Text="{Binding Quantity}" Margin="0,0,0,10" />
+                        <TextBox x:Name="quantityTextBox" Margin="0,0,0,10" />
                         <TextBlock Text="Stock value" FontWeight="Bold" />
-                        <TextBlock Text="{Binding StockValue, StringFormat={}{0:C}}" Margin="0,0,0,10" />
-                        <TextBlock Text="Producer" FontWeight="Bold" />
-                        <TextBlock Text="{Binding Producer}" Margin="0,0,0,10" />
-                        <TextBlock Text="Color" FontWeight="Bold" />
-                        <TextBlock Text="{Binding Color}" />
+                        <TextBlock x:Name="stockValueTextBlock" Margin="0,0,0,10" />
+                        <TextBlock x:Name="producerLabel" Text="Producer (Parts/Service only)" FontWeight="Bold" />
+                        <TextBox x:Name="producerTextBox" IsEnabled="False" Margin="0,0,0,10" />
+                        <TextBlock x:Name="colorLabel" Text="Color (Accessory only)" FontWeight="Bold" />
+                        <TextBox x:Name="colorTextBox" IsEnabled="False" Margin="0,0,0,10" />
+                        <TextBlock x:Name="feedbackLabel"
+                                   Foreground="Firebrick"
+                                   TextWrapping="Wrap"
+                                   Margin="0,0,0,10" />
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button x:Name="saveButton"
+                                    Content="Save"
+                                    Click="SaveButton_Click"
+                                    IsEnabled="False"
+                                    Padding="12,5"
+                                    Margin="0,0,8,0" />
+                            <Button x:Name="cancelButton"
+                                    Content="Cancel"
+                                    Click="CancelButton_Click"
+                                    IsEnabled="False"
+                                    Padding="12,5" />
+                        </StackPanel>
                     </StackPanel>
                 </Border>
             </StackPanel>
