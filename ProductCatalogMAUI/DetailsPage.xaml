@@ -3,32 +3,112 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="ProductCatalogMAUI.DetailsPage"
              Title="Product Details">
-    <VerticalStackLayout Padding="30" Spacing="15">
-        <Entry x:Name="nameEntry"
-               Placeholder="Name"
-               FontSize="24"
-               FontAttributes="Bold" />
-        <Entry x:Name="categoryEntry"
-               Placeholder="Category" />
-        <Entry x:Name="priceEntry"
-               Placeholder="Price"
-               Keyboard="Numeric" />
-        <Entry x:Name="quantityEntry"
-               Placeholder="Quantity"
-               Keyboard="Numeric" />
-        <Label x:Name="stockValueLabel"
-               Text="{Binding StockValue, StringFormat='Stock Value: {0:C}'}" />
-        <Label x:Name="descriptionLabel" />
-        <Label x:Name="errorLabel"
-               TextColor="Red"
-               IsVisible="False" />
-        <Label x:Name="successLabel"
-               TextColor="Green"
-               IsVisible="False" />
-        <Button Text="Save" Clicked="Save_Clicked" />
-        <Button Text="Return to List" Clicked="ReturnToList_Clicked" />
-        <Button Text="Delete Product"
-                Clicked="Delete_Clicked"
-                BackgroundColor="Red" />
-    </VerticalStackLayout>
+    <ScrollView>
+        <VerticalStackLayout Padding="24,28" Spacing="18">
+            <VerticalStackLayout Spacing="4">
+                <Label Text="Product details"
+                       FontSize="28"
+                       FontAttributes="Bold"
+                       TextColor="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource White}}" />
+                <Label Text="Review or update the selected product"
+                       FontSize="14"
+                       TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray300}}" />
+            </VerticalStackLayout>
+
+            <Border Padding="16"
+                    StrokeThickness="1"
+                    Stroke="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}"
+                    StrokeShape="RoundRectangle 12">
+                <VerticalStackLayout Spacing="12">
+                    <Label Text="Product information"
+                           FontAttributes="Bold"
+                           FontSize="16" />
+                    <Entry x:Name="nameEntry"
+                           Placeholder="Name"
+                           FontSize="20"
+                           FontAttributes="Bold" />
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                        <Entry x:Name="categoryEntry"
+                               Grid.Column="0"
+                               Placeholder="Category" />
+                        <Entry x:Name="priceEntry"
+                               Grid.Column="1"
+                               Placeholder="Price"
+                               Keyboard="Numeric" />
+                    </Grid>
+                    <Entry x:Name="quantityEntry"
+                           Placeholder="Quantity"
+                           Keyboard="Numeric" />
+                    <HorizontalStackLayout Spacing="10" VerticalOptions="Center">
+                        <CheckBox x:Name="IsAvailableCheckBox"
+                                  Color="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray300}}" />
+                        <Label Text="Product is available"
+                               VerticalOptions="Center"
+                               FontSize="14" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Border Padding="14"
+                        StrokeThickness="1"
+                        Stroke="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}"
+                        StrokeShape="RoundRectangle 12">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Stock value"
+                               FontSize="12"
+                               TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray300}}" />
+                        <Label x:Name="stockValueLabel"
+                               Text="{Binding StockValue, StringFormat='Stock Value: {0:C}'}"
+                               FontAttributes="Bold"
+                               FontSize="16" />
+                    </VerticalStackLayout>
+                </Border>
+                <Border Grid.Column="1"
+                        Padding="14"
+                        StrokeThickness="1"
+                        Stroke="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}"
+                        StrokeShape="RoundRectangle 12">
+                    <VerticalStackLayout Spacing="4">
+                        <Label Text="Description"
+                               FontSize="12"
+                               TextColor="{AppThemeBinding Light={StaticResource Gray600}, Dark={StaticResource Gray300}}" />
+                        <Label x:Name="descriptionLabel"
+                               LineBreakMode="WordWrap"
+                               FontSize="13" />
+                    </VerticalStackLayout>
+                </Border>
+            </Grid>
+
+            <VerticalStackLayout Spacing="6">
+                <Label x:Name="errorLabel"
+                       TextColor="#B42318"
+                       IsVisible="False"
+                       FontSize="13" />
+                <Label x:Name="successLabel"
+                       TextColor="#027A48"
+                       IsVisible="False"
+                       FontSize="13" />
+            </VerticalStackLayout>
+
+            <Button Text="Save"
+                    Clicked="Save_Clicked"
+                    HorizontalOptions="Fill" />
+            <Button Text="Return to list"
+                    Clicked="ReturnToList_Clicked"
+                    HorizontalOptions="Fill"
+                    BackgroundColor="Transparent"
+                    TextColor="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource White}}"
+                    BorderColor="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray500}}"
+                    BorderWidth="1" />
+            <Button Text="Delete product"
+                    Clicked="Delete_Clicked"
+                    HorizontalOptions="Fill"
+                    BackgroundColor="#B42318"
+                    TextColor="White" />
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

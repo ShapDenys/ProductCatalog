@@ -16,28 +16,12 @@ namespace ProductCatalogMAUI
             InitializeComponent();
             BindingContext = this;
 
+            ProductSearchBar.Text = Preferences.Default.Get("LastSearch", string.Empty);
+
             if (ProductCategoryPicker is not null && ProductCategoryPicker.Items.Count > 0)
             {
                 ProductCategoryPicker.SelectedIndex = 0;
             }
-
-            allProducts.AddRange(new Product().GetTestData(5));
-            allProducts.Add(new Parts
-            {
-                Name = "Test Part",
-                Price = 250,
-                Category = 'P',
-                Quantity = 4,
-                Producer = "Part Manufacturer"
-            });
-            allProducts.Add(new Service
-            {
-                Name = "Test Service",
-                Price = 120,
-                Category = 'U',
-                Quantity = 2,
-                Producer = "Service Provider"
-            });
 
             RefreshView();
         }
@@ -48,8 +32,11 @@ namespace ProductCatalogMAUI
             RefreshView();
         }
 
-        private void RefreshView()
+        private async void RefreshView()
         {
+            allProducts.Clear();
+            allProducts.AddRange(await ProductStorage.LoadProductsAsync());
+
             VisibleProducts.Clear();
 
             string criteria = ProductSearchBar?.Text ?? string.Empty;
@@ -70,6 +57,7 @@ namespace ProductCatalogMAUI
 
         private void OnSearchBarTextChanged(object? sender, TextChangedEventArgs e)
         {
+            Preferences.Default.Set("LastSearch", ProductSearchBar?.Text ?? string.Empty);
             RefreshView();
         }
 

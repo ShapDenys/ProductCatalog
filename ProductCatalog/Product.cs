@@ -8,6 +8,8 @@ public class Product : IPriced, IComparable<Product>, INotifyPropertyChanged
     private double _price;
     private uint _quantity;
 
+    private bool _isAvailable = true;
+
     public string Name
     {
         get => _name;
@@ -45,6 +47,19 @@ public class Product : IPriced, IComparable<Product>, INotifyPropertyChanged
             {
                 _quantity = value;
                 OnPropertyChanged(nameof(Quantity));
+            }
+        }
+    }
+
+    public bool IsAvailable
+    {
+        get => _isAvailable;
+        set
+        {
+            if (_isAvailable != value)
+            {
+                _isAvailable = value;
+                OnPropertyChanged(nameof(IsAvailable));
             }
         }
     }

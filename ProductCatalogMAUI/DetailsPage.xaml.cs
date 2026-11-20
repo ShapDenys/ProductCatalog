@@ -23,6 +23,7 @@ public partial class DetailsPage : ContentPage, IQueryAttributable
             categoryEntry.Text = product.Category.ToString();
             priceEntry.Text = product.Price.ToString();
             quantityEntry.Text = product.Quantity.ToString();
+            IsAvailableCheckBox.IsChecked = product.IsAvailable;
             descriptionLabel.Text = product.Description();
             stockValueLabel.Text = $"Stock Value: {product.StockValue:C}";
             errorLabel.IsVisible = false;
@@ -67,6 +68,7 @@ public partial class DetailsPage : ContentPage, IQueryAttributable
         product.Category = category;
         product.Price = Math.Round(price, 2);
         product.Quantity = quantity;
+        product.IsAvailable = IsAvailableCheckBox.IsChecked;
         descriptionLabel.Text = product.Description();
         stockValueLabel.Text = $"Stock Value: {product.StockValue:C}";
         errorLabel.IsVisible = false;
