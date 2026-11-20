@@ -91,7 +91,7 @@ public partial class DetailsPage : ContentPage, IQueryAttributable
             return;
         }
 
-        bool confirmed = await DisplayAlert(
+        bool confirmed = await DisplayAlertAsync(
             "Delete product",
             $"Are you sure you want to delete '{product.Name}'?",
             "Delete",

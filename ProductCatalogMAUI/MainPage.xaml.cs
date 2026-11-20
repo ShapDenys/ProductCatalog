@@ -35,7 +35,7 @@ namespace ProductCatalogMAUI
         private async void RefreshView()
         {
             allProducts.Clear();
-            allProducts.AddRange(await ProductStorage.LoadProductsAsync());
+            allProducts.AddRange(await FileStorage.LoadAsync());
 
             VisibleProducts.Clear();
 
