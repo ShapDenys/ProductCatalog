@@ -6,6 +6,7 @@ namespace ProductCatalogMAUI
 {
     public partial class MainPage : ContentPage
     {
+        private bool _isLoaded = false;
         private readonly List<Product> allProducts = new();
 
         public ObservableCollection<Product> VisibleProducts { get; set; } = new();
@@ -23,20 +24,23 @@ namespace ProductCatalogMAUI
                 ProductCategoryPicker.SelectedIndex = 0;
             }
 
-            RefreshView();
         }
 
-        protected override void OnAppearing()
+        protected async override void OnAppearing()
         {
             base.OnAppearing();
+            if(!_isLoaded)
+            {
+                allProducts.Clear();
+                allProducts.AddRange(await FileStorage.LoadAsync());
+                _isLoaded = true;
+            }
+
             RefreshView();
         }
 
-        private async void RefreshView()
+        private void RefreshView()
         {
-            allProducts.Clear();
-            allProducts.AddRange(await FileStorage.LoadAsync());
-
             VisibleProducts.Clear();
 
             string criteria = ProductSearchBar?.Text ?? string.Empty;
@@ -53,6 +57,7 @@ namespace ProductCatalogMAUI
             {
                 ItemsCounterLabel.Text = $"Matching products: {VisibleProducts.Count}";
             }
+
         }
 
         private void OnSearchBarTextChanged(object? sender, TextChangedEventArgs e)
@@ -61,7 +66,7 @@ namespace ProductCatalogMAUI
             RefreshView();
         }
 
-        private void OnClickAddProduct(object? sender, EventArgs e)
+        private async void OnClickAddProduct(object? sender, EventArgs e)
         {
             string newProductName = ProductNameEntry?.Text?.Trim() ?? string.Empty;
             if (string.IsNullOrWhiteSpace(newProductName))
@@ -100,6 +105,7 @@ namespace ProductCatalogMAUI
             };
 
             allProducts.Add(newProduct);
+            await FileStorage.SaveAsync(allProducts);
 
             if (ProductNameEntry is not null) ProductNameEntry.Text = string.Empty;
             if (ProductPriceEntry is not null) ProductPriceEntry.Text = string.Empty;
@@ -108,13 +114,14 @@ namespace ProductCatalogMAUI
             RefreshView();
         }
 
-        private void OnClickRemoveProduct(object? sender, EventArgs e)
+        private async void OnClickRemoveProduct(object? sender, EventArgs e)
         {
             if (ProductsCollectionView?.SelectedItem is Product selectedProduct)
             {
                 allProducts.Remove(selectedProduct);
                 ProductsCollectionView.SelectedItem = null;
                 HideError();
+                await FileStorage.SaveAsync(allProducts);
                 RefreshView();
             }
             else

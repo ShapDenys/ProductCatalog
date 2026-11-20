@@ -31,7 +31,7 @@ public partial class DetailsPage : ContentPage, IQueryAttributable
         }
     }
 
-    private void Save_Clicked(object sender, EventArgs e)
+    private async void Save_Clicked(object sender, EventArgs e)
     {
         if (product is null)
         {
@@ -69,6 +69,10 @@ public partial class DetailsPage : ContentPage, IQueryAttributable
         product.Price = Math.Round(price, 2);
         product.Quantity = quantity;
         product.IsAvailable = IsAvailableCheckBox.IsChecked;
+        if (products is not null)
+        {
+            await FileStorage.SaveAsync(products);
+        }
         descriptionLabel.Text = product.Description();
         stockValueLabel.Text = $"Stock Value: {product.StockValue:C}";
         errorLabel.IsVisible = false;
@@ -103,6 +107,7 @@ public partial class DetailsPage : ContentPage, IQueryAttributable
         }
 
         products.Remove(product);
+        await FileStorage.SaveAsync(products);
         await Shell.Current.GoToAsync("..");
     }
 
