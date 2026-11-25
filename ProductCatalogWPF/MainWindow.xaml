@@ -109,56 +109,92 @@
                 </ScrollViewer>
             </StackPanel>
 
-            <StackPanel x:Name="productDetailsPanel"
-                        Grid.Column="1"
-                        Margin="20,0,0,0">
-                <TextBlock Text="Selected product"
-                           FontSize="18"
-                           FontWeight="Bold"
-                           Margin="0,0,0,15" />
-                <Border BorderBrush="#D0D0D0"
-                        BorderThickness="1"
-                        Padding="12">
-                    <StackPanel>
-                        <TextBlock Text="Name" FontWeight="Bold" />
-                        <TextBox x:Name="nameTextBox" Margin="0,0,0,10" />
-                        <TextBlock Text="Category" FontWeight="Bold" />
-                        <ComboBox x:Name="categoryComboBox" Margin="0,0,0,10">
-                            <ComboBoxItem Content="C" />
-                            <ComboBoxItem Content="P" />
-                            <ComboBoxItem Content="S" />
-                            <ComboBoxItem Content="A" />
-                        </ComboBox>
-                        <TextBlock Text="Price" FontWeight="Bold" />
-                        <TextBox x:Name="priceTextBox" Margin="0,0,0,10" />
-                        <TextBlock Text="Quantity" FontWeight="Bold" />
-                        <TextBox x:Name="quantityTextBox" Margin="0,0,0,10" />
-                        <TextBlock Text="Stock value" FontWeight="Bold" />
-                        <TextBlock x:Name="stockValueTextBlock" Margin="0,0,0,10" />
-                        <TextBlock x:Name="producerLabel" Text="Producer (Parts/Service only)" FontWeight="Bold" />
-                        <TextBox x:Name="producerTextBox" IsEnabled="False" Margin="0,0,0,10" />
-                        <TextBlock x:Name="colorLabel" Text="Color (Accessory only)" FontWeight="Bold" />
-                        <TextBox x:Name="colorTextBox" IsEnabled="False" Margin="0,0,0,10" />
-                        <TextBlock x:Name="feedbackLabel"
-                                   Foreground="Firebrick"
-                                   TextWrapping="Wrap"
-                                   Margin="0,0,0,10" />
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Button x:Name="saveButton"
-                                    Content="Save"
-                                    Click="SaveButton_Click"
-                                    IsEnabled="False"
-                                    Padding="12,5"
-                                    Margin="0,0,8,0" />
-                            <Button x:Name="cancelButton"
-                                    Content="Cancel"
-                                    Click="CancelButton_Click"
-                                    IsEnabled="False"
-                                    Padding="12,5" />
+            <Grid x:Name="productDetailsPanel"
+                  Grid.Column="1"
+                  Margin="20,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="0">
+                    <TextBlock Text="Selected product"
+                               FontSize="18"
+                               FontWeight="Bold"
+                               Margin="0,0,0,15" />
+                    <Border BorderBrush="#D0D0D0" BorderThickness="1" Padding="12">
+                        <StackPanel>
+                            <TextBlock Text="Name" FontWeight="Bold" />
+                            <TextBox x:Name="nameTextBox" Margin="0,0,0,10" />
+                            <TextBlock Text="Category" FontWeight="Bold" />
+                            <ComboBox x:Name="categoryComboBox"
+                                      SelectedValuePath="Content"
+                                      Margin="0,0,0,10">
+                                <ComboBoxItem Content="C" />
+                                <ComboBoxItem Content="P" />
+                                <ComboBoxItem Content="S" />
+                                <ComboBoxItem Content="A" />
+                            </ComboBox>
+                            <TextBlock Text="Price" FontWeight="Bold" />
+                            <TextBox x:Name="priceTextBox" Margin="0,0,0,10" />
+                            <TextBlock Text="Quantity" FontWeight="Bold" />
+                            <TextBox x:Name="quantityTextBox" Margin="0,0,0,10" />
+                            <TextBlock Text="Stock value" FontWeight="Bold" />
+                            <TextBlock x:Name="stockValueTextBlock" Margin="0,0,0,10" />
+                            <TextBlock x:Name="producerLabel" Text="Producer (Parts/Service only)" FontWeight="Bold" />
+                            <TextBox x:Name="producerTextBox" IsEnabled="False" Margin="0,0,0,10" />
+                            <TextBlock x:Name="colorLabel" Text="Color (Accessory only)" FontWeight="Bold" />
+                            <TextBox x:Name="colorTextBox" IsEnabled="False" Margin="0,0,0,10" />
+                            <TextBlock x:Name="feedbackLabel"
+                                       Foreground="Firebrick"
+                                       TextWrapping="Wrap"
+                                       Margin="0,0,0,10" />
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <Button x:Name="saveButton" Content="Save" Click="SaveButton_Click" IsEnabled="False" Padding="12,5" Margin="0,0,8,0" />
+                                <Button x:Name="cancelButton" Content="Cancel" Click="CancelButton_Click" IsEnabled="False" Padding="12,5" />
+                            </StackPanel>
                         </StackPanel>
+                    </Border>
+                </StackPanel>
+
+                <Border Grid.Row="1" BorderBrush="#D0D0D0" BorderThickness="1" Padding="12" Margin="0,15,0,0">
+                    <StackPanel>
+                        <TextBlock Text="Create new element" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" />
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="Type" FontWeight="Bold" Margin="0,0,10,8" />
+                            <ComboBox x:Name="newTypeComboBox" Grid.Column="1" SelectedIndex="0" SelectionChanged="NewTypeComboBox_SelectionChanged" Margin="0,0,0,8">
+                                <ComboBoxItem Content="Product" Tag="C" />
+                                <ComboBoxItem Content="Part" Tag="P" />
+                                <ComboBoxItem Content="Service" Tag="S" />
+                                <ComboBoxItem Content="Accessory" Tag="A" />
+                            </ComboBox>
+                            <TextBlock Text="Name" FontWeight="Bold" Margin="0,0,10,8" />
+                            <TextBox x:Name="newNameTextBox" Grid.Column="1" Margin="0,0,0,8" />
+                            <TextBlock Text="Price" FontWeight="Bold" Grid.Row="2" Margin="0,0,10,8" />
+                            <TextBox x:Name="newPriceTextBox" Grid.Row="2" Grid.Column="1" Margin="0,0,0,8" />
+                            <TextBlock Text="Quantity" FontWeight="Bold" Grid.Row="3" Margin="0,0,10,8" />
+                            <TextBox x:Name="newQuantityTextBox" Grid.Row="3" Grid.Column="1" Margin="0,0,0,8" />
+                            <TextBlock x:Name="newProducerLabel" Text="Producer" FontWeight="Bold" Grid.Row="4" Margin="0,0,10,8" />
+                            <TextBox x:Name="newProducerTextBox" Grid.Row="4" Grid.Column="1" Margin="0,0,0,8" />
+                            <TextBlock x:Name="newColorLabel" Text="Color (#RRGGBB)" FontWeight="Bold" Grid.Row="5" Margin="0,0,10,8" />
+                            <TextBox x:Name="newColorTextBox" Grid.Row="5" Grid.Column="1" Margin="0,0,0,8" />
+                        </Grid>
+                        <TextBlock x:Name="newFeedbackLabel" Foreground="Firebrick" TextWrapping="Wrap" Margin="0,0,0,8" />
+                        <Button Content="Add element" Click="AddElementButton_Click" HorizontalAlignment="Right" Padding="12,5" />
                     </StackPanel>
                 </Border>
-            </StackPanel>
+            </Grid>
         </Grid>
 
         <TextBlock Grid.Row="2"

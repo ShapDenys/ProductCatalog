@@ -56,21 +56,25 @@ namespace ProductCatalogWPF
             }
 
             nameTextBox.Text = _selectedProduct.Name;
-            categoryComboBox.SelectedIndex = _selectedProduct.Category switch
-            {
-                'C' => 0,
-                'P' => 1,
-                'S' => 2,
-                'A' => 3,
-                _ => -1
-            };
+            categoryComboBox.SelectedValue = _selectedProduct.Category.ToString();
             priceTextBox.Text = _selectedProduct.Price.ToString("F2", UsCulture);
             quantityTextBox.Text = _selectedProduct.Quantity.ToString(UsCulture);
             stockValueTextBlock.Text = _selectedProduct.StockValue.ToString("C", UsCulture);
-            producerTextBox.Text = (_selectedProduct as Parts)?.Producer
-                ?? (_selectedProduct as Service)?.Producer
-                ?? string.Empty;
-            colorTextBox.Text = (_selectedProduct as Accessory)?.Color ?? string.Empty;
+            producerTextBox.Text = string.Empty;
+            if (_selectedProduct is Parts parts)
+            {
+                producerTextBox.Text = parts.Producer;
+            }
+            else if (_selectedProduct is Service service)
+            {
+                producerTextBox.Text = service.Producer;
+            }
+
+            colorTextBox.Text = string.Empty;
+            if (_selectedProduct is Accessory accessory)
+            {
+                colorTextBox.Text = accessory.Color;
+            }
             FeedbackLabel.Text = string.Empty;
         }
 
@@ -82,7 +86,7 @@ namespace ProductCatalogWPF
             }
 
             if (string.IsNullOrWhiteSpace(nameTextBox.Text)
-                || categoryComboBox.SelectedItem is not System.Windows.Controls.ComboBoxItem selectedCategory
+                || categoryComboBox.SelectedValue is not string category
                 || !double.TryParse(priceTextBox.Text, NumberStyles.Float | NumberStyles.AllowThousands, UsCulture, out var price)
                 || price < 0
                 || !uint.TryParse(quantityTextBox.Text, NumberStyles.Integer, CultureInfo.CurrentCulture, out var quantity))
@@ -94,21 +98,21 @@ namespace ProductCatalogWPF
             try
             {
                 _selectedProduct.Name = nameTextBox.Text.Trim();
-                _selectedProduct.Category = selectedCategory.Content.ToString()![0];
+                _selectedProduct.Category = category[0];
                 _selectedProduct.Price = price;
                 _selectedProduct.Quantity = quantity;
 
-                switch (_selectedProduct)
+                if (_selectedProduct is Parts parts)
                 {
-                    case Parts parts:
-                        parts.Producer = producerTextBox.Text.Trim();
-                        break;
-                    case Service service:
-                        service.Producer = producerTextBox.Text.Trim();
-                        break;
-                    case Accessory accessory:
-                        accessory.Color = colorTextBox.Text.Trim();
-                        break;
+                    parts.Producer = producerTextBox.Text.Trim();
+                }
+                else if (_selectedProduct is Service service)
+                {
+                    service.Producer = producerTextBox.Text.Trim();
+                }
+                else if (_selectedProduct is Accessory accessory)
+                {
+                    accessory.Color = colorTextBox.Text.Trim();
                 }
 
                 productsListBox.Items.Refresh();
