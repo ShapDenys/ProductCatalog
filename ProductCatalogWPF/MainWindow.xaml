@@ -116,11 +116,11 @@
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Row="0">
-                    <TextBlock Text="Selected product"
-                               FontSize="18"
-                               FontWeight="Bold"
-                               Margin="0,0,0,15" />
+                <ScrollViewer Grid.RowSpan="2"
+                              VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel>
+                <GroupBox Header="Selected product" Padding="12">
                     <Border BorderBrush="#D0D0D0" BorderThickness="1" Padding="12">
                         <StackPanel>
                             <TextBlock Text="Name" FontWeight="Bold" />
@@ -154,11 +154,10 @@
                             </StackPanel>
                         </StackPanel>
                     </Border>
-                </StackPanel>
+                </GroupBox>
 
-                <Border Grid.Row="1" BorderBrush="#D0D0D0" BorderThickness="1" Padding="12" Margin="0,15,0,0">
+                <GroupBox Header="Create new element" Padding="12" Margin="0,15,0,0">
                     <StackPanel>
-                        <TextBlock Text="Create new element" FontSize="18" FontWeight="Bold" Margin="0,0,0,10" />
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
@@ -173,14 +172,14 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
                             <TextBlock Text="Type" FontWeight="Bold" Margin="0,0,10,8" />
-                            <ComboBox x:Name="newTypeComboBox" Grid.Column="1" SelectedIndex="0" SelectionChanged="NewTypeComboBox_SelectionChanged" Margin="0,0,0,8">
+                            <ComboBox x:Name="newTypeComboBox" Grid.Column="1" SelectedIndex="0" Margin="0,0,0,8">
                                 <ComboBoxItem Content="Product" Tag="C" />
                                 <ComboBoxItem Content="Part" Tag="P" />
                                 <ComboBoxItem Content="Service" Tag="S" />
                                 <ComboBoxItem Content="Accessory" Tag="A" />
                             </ComboBox>
-                            <TextBlock Text="Name" FontWeight="Bold" Margin="0,0,10,8" />
-                            <TextBox x:Name="newNameTextBox" Grid.Column="1" Margin="0,0,0,8" />
+                            <TextBlock Text="Name" FontWeight="Bold" Grid.Row="1" Margin="0,0,10,8" />
+                            <TextBox x:Name="newNameTextBox" Grid.Row="1" Grid.Column="1" Margin="0,0,0,8" />
                             <TextBlock Text="Price" FontWeight="Bold" Grid.Row="2" Margin="0,0,10,8" />
                             <TextBox x:Name="newPriceTextBox" Grid.Row="2" Grid.Column="1" Margin="0,0,0,8" />
                             <TextBlock Text="Quantity" FontWeight="Bold" Grid.Row="3" Margin="0,0,10,8" />
@@ -191,9 +190,11 @@
                             <TextBox x:Name="newColorTextBox" Grid.Row="5" Grid.Column="1" Margin="0,0,0,8" />
                         </Grid>
                         <TextBlock x:Name="newFeedbackLabel" Foreground="Firebrick" TextWrapping="Wrap" Margin="0,0,0,8" />
-                        <Button Content="Add element" Click="AddElementButton_Click" HorizontalAlignment="Right" Padding="12,5" />
+                        <Button Content="Add element" HorizontalAlignment="Right" Padding="12,5" />
                     </StackPanel>
-                </Border>
+                </GroupBox>
+                    </StackPanel>
+                </ScrollViewer>
             </Grid>
         </Grid>
 
