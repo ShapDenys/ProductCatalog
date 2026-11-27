@@ -148,6 +148,5 @@ namespace ProductCatalogWPF
             feedbackLabel.Text = message;
             feedbackLabel.Foreground = isError ? Brushes.Firebrick : Brushes.ForestGreen;
         }
-
     }
 }

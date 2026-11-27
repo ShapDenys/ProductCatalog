@@ -6,6 +6,7 @@ public class Product : IPriced, IComparable<Product>, INotifyPropertyChanged
 {
     private string _name = string.Empty;
     private double _price;
+    private char _category;
     private uint _quantity;
 
     private bool _isAvailable = true;
@@ -36,7 +37,18 @@ public class Product : IPriced, IComparable<Product>, INotifyPropertyChanged
         }
     }
 
-    public char Category { get; set; }
+    public char Category
+    {
+        get => _category;
+        set
+        {
+            if (_category != value)
+            {
+                _category = value;
+                OnPropertyChanged(nameof(Category));
+            }
+        }
+    }
 
     public uint Quantity
     {
