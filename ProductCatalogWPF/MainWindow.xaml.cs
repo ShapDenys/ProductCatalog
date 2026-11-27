@@ -1,5 +1,4 @@
 ﻿using ProductCatalog;
-using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
 
@@ -84,13 +83,27 @@ namespace ProductCatalogWPF
                 return;
             }
 
-            if (string.IsNullOrWhiteSpace(nameTextBox.Text)
-                || categoryComboBox.SelectedValue is not string category
-                || !double.TryParse(priceTextBox.Text, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.CurrentCulture, out var price)
-                || price < 0
-                || !uint.TryParse(quantityTextBox.Text, NumberStyles.Integer, CultureInfo.CurrentCulture, out var quantity))
+            if (string.IsNullOrWhiteSpace(nameTextBox.Text))
             {
-                SetFeedback("Enter a name, category, valid price, and non-negative quantity.", isError: true);
+                SetFeedback("Enter a name.", isError: true);
+                return;
+            }
+
+            if (categoryComboBox.SelectedValue is not string category)
+            {
+                SetFeedback("Select a category.", isError: true);
+                return;
+            }
+
+            if (!double.TryParse(priceTextBox.Text, out var price) || price < 0)
+            {
+                SetFeedback("Enter a valid, non-negative price.", isError: true);
+                return;
+            }
+
+            if (!uint.TryParse(quantityTextBox.Text, out var quantity))
+            {
+                SetFeedback("Enter a valid, non-negative quantity.", isError: true);
                 return;
             }
 
