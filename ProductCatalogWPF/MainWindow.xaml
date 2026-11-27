@@ -136,9 +136,9 @@
                                 <ComboBoxItem Content="A" />
                             </ComboBox>
                             <TextBlock Text="Price" FontWeight="Bold" />
-                            <TextBox x:Name="priceTextBox" Margin="0,0,0,10" />
+                            <TextBox x:Name="priceTextBox" Margin="0,0,0,10" ToolTip="{Binding (Validation.Errors)[0].ErrorContent}" />
                             <TextBlock Text="Quantity" FontWeight="Bold" />
-                            <TextBox x:Name="quantityTextBox" Margin="0,0,0,10" />
+                            <TextBox x:Name="quantityTextBox" Margin="0,0,0,10" ToolTip="{Binding (Validation.Errors)[0].ErrorContent}" />
                             <TextBlock Text="Stock value" FontWeight="Bold" />
                             <TextBlock x:Name="stockValueTextBlock" Margin="0,0,0,10" />
                             <TextBlock x:Name="producerLabel" Text="Producer (Parts/Service only)" FontWeight="Bold" />
