@@ -7,7 +7,6 @@ namespace ProductCatalogWPF
 {
     public partial class MainWindow : Window
     {
-        private static readonly CultureInfo UsCulture = CultureInfo.GetCultureInfo("en-US");
         private readonly List<Product> _products;
         private Product? _selectedProduct;
 
@@ -51,15 +50,15 @@ namespace ProductCatalogWPF
                 stockValueTextBlock.Text = string.Empty;
                 producerTextBox.Clear();
                 colorTextBox.Clear();
-                FeedbackLabel.Text = string.Empty;
+                feedbackLabel.Text = string.Empty;
                 return;
             }
 
             nameTextBox.Text = _selectedProduct.Name;
             categoryComboBox.SelectedValue = _selectedProduct.Category.ToString();
-            priceTextBox.Text = _selectedProduct.Price.ToString("F2", UsCulture);
-            quantityTextBox.Text = _selectedProduct.Quantity.ToString(UsCulture);
-            stockValueTextBlock.Text = _selectedProduct.StockValue.ToString("C", UsCulture);
+            priceTextBox.Text = _selectedProduct.Price.ToString("F2");
+            quantityTextBox.Text = _selectedProduct.Quantity.ToString();
+            stockValueTextBlock.Text = _selectedProduct.StockValue.ToString("C");
             producerTextBox.Text = string.Empty;
             if (_selectedProduct is Parts parts)
             {
@@ -75,7 +74,7 @@ namespace ProductCatalogWPF
             {
                 colorTextBox.Text = accessory.Color;
             }
-            FeedbackLabel.Text = string.Empty;
+            feedbackLabel.Text = string.Empty;
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
@@ -87,7 +86,7 @@ namespace ProductCatalogWPF
 
             if (string.IsNullOrWhiteSpace(nameTextBox.Text)
                 || categoryComboBox.SelectedValue is not string category
-                || !double.TryParse(priceTextBox.Text, NumberStyles.Float | NumberStyles.AllowThousands, UsCulture, out var price)
+                || !double.TryParse(priceTextBox.Text, NumberStyles.Float | NumberStyles.AllowThousands, CultureInfo.CurrentCulture, out var price)
                 || price < 0
                 || !uint.TryParse(quantityTextBox.Text, NumberStyles.Integer, CultureInfo.CurrentCulture, out var quantity))
             {
@@ -133,12 +132,9 @@ namespace ProductCatalogWPF
 
         private void SetFeedback(string message, bool isError)
         {
-            FeedbackLabel.Text = message;
-            FeedbackLabel.Foreground = isError ? Brushes.Firebrick : Brushes.ForestGreen;
+            feedbackLabel.Text = message;
+            feedbackLabel.Foreground = isError ? Brushes.Firebrick : Brushes.ForestGreen;
         }
-
-        private System.Windows.Controls.TextBlock FeedbackLabel =>
-            (System.Windows.Controls.TextBlock)productDetailsPanel.FindName("feedbackLabel");
 
     }
 }
